@@ -1,6 +1,7 @@
 package com.imooc.mall.controller;
 
 import com.imooc.mall.common.ApiRestResponse;
+import com.imooc.mall.common.Constant;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
 import com.imooc.mall.model.pojo.User;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
@@ -43,5 +46,27 @@ public class UserController {
 
         userService.register(userName,password);
         return ApiRestResponse.success();
+    }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public ApiRestResponse login(@RequestParam("userName") String userName, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
+        if (StringUtils.isEmpty(userName)){
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
+        }
+
+        if (StringUtils.isEmpty(password)) {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_PASSWORD);
+        }
+
+        //密码长度不能少于8位
+        if (password.length() < 8){
+            return ApiRestResponse.error(ImoocMallExceptionEnum.PASSWORD_TOO_SHORT);
+        }
+
+        User user = userService.login(userName, password);
+        user.setPassword(null);
+        session.setAttribute(Constant.IMOOC_MALL_USER,user);
+        return ApiRestResponse.success(user);
     }
 }
