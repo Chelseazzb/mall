@@ -59,4 +59,12 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+    @Override
+    public void update(User user) throws ImoocMallException {
+        int count = userMapper.updateByPrimaryKeySelective(user);
+        if (count != 1) {
+            throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
+        }
+    }
 }
