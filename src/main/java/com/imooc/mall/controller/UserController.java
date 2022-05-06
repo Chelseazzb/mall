@@ -24,14 +24,14 @@ public class UserController {
 
     @GetMapping("/test")
     @ResponseBody
-    public User personPage(){
+    public User personPage() {
         return userService.getUser();
     }
 
     @PostMapping("/register")
     @ResponseBody
-    public ApiRestResponse register(@RequestParam("userName") String userName,@RequestParam("password") String password) throws ImoocMallException {
-        if (StringUtils.isEmpty(userName)){
+    public ApiRestResponse register(@RequestParam("userName") String userName, @RequestParam("password") String password) throws ImoocMallException {
+        if (StringUtils.isEmpty(userName)) {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
         }
 
@@ -40,18 +40,18 @@ public class UserController {
         }
 
         //密码长度不能少于8位
-        if (password.length() < 8){
+        if (password.length() < 8) {
             return ApiRestResponse.error(ImoocMallExceptionEnum.PASSWORD_TOO_SHORT);
         }
 
-        userService.register(userName,password);
+        userService.register(userName, password);
         return ApiRestResponse.success();
     }
 
     @PostMapping("/login")
     @ResponseBody
     public ApiRestResponse login(@RequestParam("userName") String userName, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
-        if (StringUtils.isEmpty(userName)){
+        if (StringUtils.isEmpty(userName)) {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
         }
 
@@ -59,14 +59,9 @@ public class UserController {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_PASSWORD);
         }
 
-        //密码长度不能少于8位
-        if (password.length() < 8){
-            return ApiRestResponse.error(ImoocMallExceptionEnum.PASSWORD_TOO_SHORT);
-        }
-
         User user = userService.login(userName, password);
         user.setPassword(null);
-        session.setAttribute(Constant.IMOOC_MALL_USER,user);
+        session.setAttribute(Constant.IMOOC_MALL_USER, user);
         return ApiRestResponse.success(user);
     }
 
@@ -88,9 +83,32 @@ public class UserController {
 
     @PostMapping("/user/logout")
     @ResponseBody
-    public ApiRestResponse logout( HttpSession session) throws ImoocMallException {
+    public ApiRestResponse logout(HttpSession session) throws ImoocMallException {
 
         session.removeAttribute(Constant.IMOOC_MALL_USER);
         return ApiRestResponse.success();
+    }
+
+    @PostMapping("/adminLogin")
+    @ResponseBody
+    public ApiRestResponse adminLogin(@RequestParam("userName") String userName, @RequestParam("password") String password, HttpSession session) throws ImoocMallException {
+        if (StringUtils.isEmpty(userName)) {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_USER_NAME);
+        }
+
+        if (StringUtils.isEmpty(password)) {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_PASSWORD);
+        }
+
+
+        User user = userService.login(userName, password);
+        if (userService.checkAdmin(user)) {
+            //进行操作
+            user.setPassword(null);
+            session.setAttribute(Constant.IMOOC_MALL_USER, user);
+            return ApiRestResponse.success(user);
+        } else
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
+
     }
 }

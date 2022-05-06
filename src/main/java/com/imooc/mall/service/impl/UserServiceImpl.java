@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
             throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
         }
     }
+
+    @Override
+    public boolean checkAdmin(User user) {
+        return user.getRole() == 2;
+    }
 }

@@ -12,4 +12,6 @@ public interface UserService {
     User login(String userName, String password) throws ImoocMallException;
 
     void update(User user) throws ImoocMallException;
+
+    boolean checkAdmin(User user);
 }
