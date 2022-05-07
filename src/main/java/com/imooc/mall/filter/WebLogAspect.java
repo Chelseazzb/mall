@@ -19,6 +19,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
+/**
+ * AOP web日志处理
+ */
 @Aspect
 @Component
 public class WebLogAspect {

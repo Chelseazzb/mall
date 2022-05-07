@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * 用户接口
+ */
 @Controller
 public class UserController {
 
@@ -28,6 +31,13 @@ public class UserController {
         return userService.getUser();
     }
 
+    /**
+     * 注册新用户
+     * @param userName
+     * @param password
+     * @return ApiRestResponse.success()
+     * @throws ImoocMallException
+     */
     @PostMapping("/register")
     @ResponseBody
     public ApiRestResponse register(@RequestParam("userName") String userName, @RequestParam("password") String password) throws ImoocMallException {
