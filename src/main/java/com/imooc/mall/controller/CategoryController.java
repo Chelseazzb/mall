@@ -8,14 +8,18 @@ import com.imooc.mall.model.request.AddCategoryReq;
 import com.imooc.mall.service.CategoryService;
 import com.imooc.mall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 /**
  * 目录Controller
  */
+@Controller
 public class CategoryController {
 
     @Autowired
@@ -26,12 +30,12 @@ public class CategoryController {
 
     @PostMapping("/admin/category/add")
     @ResponseBody
-    public ApiRestResponse addCategory(HttpSession session, AddCategoryReq categoryReq) {
+    public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody AddCategoryReq categoryReq) {
 
-        if (categoryReq.getName() == null || categoryReq.getType() == null || categoryReq.getParentId() == null
-                || categoryReq.getOrderNum() == null) {
-            return ApiRestResponse.error(ImoocMallExceptionEnum.CATEGORY_NOT_NULL);
-        }
+//        if (categoryReq.getName() == null || categoryReq.getType() == null || categoryReq.getParentId() == null
+//                || categoryReq.getOrderNum() == null) {
+//            return ApiRestResponse.error(ImoocMallExceptionEnum.CATEGORY_NOT_NULL);
+//        }
 
         User user = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
         if (user == null)

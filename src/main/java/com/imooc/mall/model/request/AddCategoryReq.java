@@ -1,16 +1,26 @@
 package com.imooc.mall.model.request;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * VO
  */
 public class AddCategoryReq {
 
+    @Size(min = 2,max = 5)
+    @NotNull
     private String name;
 
+    @Max(3)
+    @NotNull
     private Integer type;
 
+    @NotNull
     private Integer parentId;
 
+    @NotNull
     private Integer orderNum;
 
     public String getName() {
