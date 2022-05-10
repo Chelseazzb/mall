@@ -10,17 +10,17 @@ import javax.validation.constraints.Size;
 public class AddCategoryReq {
 
     @Size(min = 2,max = 5)
-    @NotNull
+    @NotNull(message = "name不能为空")
     private String name;
 
     @Max(3)
-    @NotNull
+    @NotNull(message = "type不能为空")
     private Integer type;
 
-    @NotNull
+    @NotNull(message = "parentId不能为空")
     private Integer parentId;
 
-    @NotNull
+    @NotNull(message = "orderNum不能为空")
     private Integer orderNum;
 
     public String getName() {
