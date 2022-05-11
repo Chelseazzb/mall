@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3f7d0e4d-6745-4ddc-b7ee-51871cfd96c9",
+		"_postman_id": "d7e97d43-31ec-4b0b-b128-1bd4bbd30d6f",
 		"name": "mall",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -155,6 +155,44 @@
 							"path": [
 								"user",
 								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "AddCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"12\",\r\n    \"type\":2,\r\n    \"parentId\":6,\r\n    \"orderNum\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8083/admin/category/add",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8083",
+							"path": [
+								"admin",
+								"category",
+								"add"
 							]
 						}
 					},
