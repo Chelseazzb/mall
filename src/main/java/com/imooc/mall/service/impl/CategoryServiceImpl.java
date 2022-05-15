@@ -1,5 +1,8 @@
 package com.imooc.mall.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.imooc.mall.exception.ImoocMallException;
 import com.imooc.mall.exception.ImoocMallExceptionEnum;
 import com.imooc.mall.model.dao.CategoryMapper;
@@ -10,6 +13,8 @@ import com.imooc.mall.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -54,5 +59,13 @@ public class CategoryServiceImpl implements CategoryService {
         if (count == 0){
             throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
         }
+    }
+
+    @Override
+    public PageInfo listCategoryForAdmin(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize,"type,order_num");
+        List<Category> categoryList = categoryMapper.selectList();
+        PageInfo pageInfo = new PageInfo(categoryList);
+        return pageInfo;
     }
 }
