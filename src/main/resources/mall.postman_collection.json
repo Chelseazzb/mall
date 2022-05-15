@@ -14,7 +14,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8083/register?userName=zzb&password=12345678",
+							"raw": "http://127.0.0.1:8083/register?userName=test&password=test1234",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -29,11 +29,11 @@
 							"query": [
 								{
 									"key": "userName",
-									"value": "zzb"
+									"value": "test"
 								},
 								{
 									"key": "password",
-									"value": "12345678"
+									"value": "test1234"
 								}
 							]
 						}
@@ -46,7 +46,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8083/login?userName=zzb&password=12345678",
+							"raw": "http://127.0.0.1:8083/login?userName=test&password=test1234",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -61,11 +61,11 @@
 							"query": [
 								{
 									"key": "userName",
-									"value": "zzb"
+									"value": "test"
 								},
 								{
 									"key": "password",
-									"value": "12345678"
+									"value": "test1234"
 								}
 							]
 						}
@@ -193,6 +193,111 @@
 								"admin",
 								"category",
 								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 28,\r\n    \"name\":\"鸭货\",\r\n    \"type\":3,\r\n    \"parentId\":6,\r\n    \"orderNum\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8083/admin/category/update",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8083",
+							"path": [
+								"admin",
+								"category",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8083/admin/category/delete?id=29",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8083",
+							"path": [
+								"admin",
+								"category",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "29"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListCategoryForAdmin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8083/admin/category/delete",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8083",
+							"path": [
+								"admin",
+								"category",
+								"delete"
 							]
 						}
 					},
