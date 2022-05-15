@@ -13,10 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -49,7 +46,7 @@ public class CategoryController {
 
         //校验是否为管理员
         boolean checkAdmin = userService.checkAdmin(user);
-        if (checkAdmin){
+        if (checkAdmin) {
             categoryService.add(categoryReq);
             return ApiRestResponse.success();
         } else
@@ -60,19 +57,27 @@ public class CategoryController {
     @ApiOperation("后台更新目录")
     @PutMapping("/admin/category/update")
     @ResponseBody
-    public ApiRestResponse updateCategory(@Valid @RequestBody UpdateCategoryReq updateCategoryReq, HttpSession session){
+    public ApiRestResponse updateCategory(@Valid @RequestBody UpdateCategoryReq updateCategoryReq, HttpSession session) {
         User user = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
         if (user == null)
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN);
 
         //校验是否为管理员
         boolean checkAdmin = userService.checkAdmin(user);
-        if (checkAdmin){
+        if (checkAdmin) {
             Category category = new Category();
-            BeanUtils.copyProperties(updateCategoryReq,category);
+            BeanUtils.copyProperties(updateCategoryReq, category);
             categoryService.update(category);
             return ApiRestResponse.success();
         } else
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
+    }
+
+    @ApiOperation("后台删除目录")
+    @DeleteMapping("/admin/category/delete")
+    @ResponseBody
+    public ApiRestResponse deleteCategory(@RequestParam Integer id) {
+        categoryService.delete(id);
+        return ApiRestResponse.success();
     }
 }

@@ -47,4 +47,12 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ImoocMallException(ImoocMallExceptionEnum.UPDATE_FAILED);
         }
     }
+
+    @Override
+    public void delete(Integer id) {
+        int count = categoryMapper.deleteByPrimaryKey(id);
+        if (count == 0){
+            throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
+        }
+    }
 }
